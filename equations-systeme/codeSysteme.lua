@@ -251,26 +251,21 @@ local function pick_method_case(system, num_sols)
     if num_sols == math.huge then method = [[les deux équations sont dépendantes]] --> S = line case, i.e. (a&d==0 and b&e==0 and c&f==0) or (d&a==0 and e&b==0 and f&c==0)
 
     elseif num_sols == 1 then
-        if a==0 or b==1 then method = [[isoler \(y\) dans la première équation, substituer ensuite]]
-        elseif b==0 or a==1 then method = [[isoler \(x\) dans la première équation, substituer ensuite]]
-        elseif d==0 or e==1 then method = [[isoler \(y\) dans la deuxième équation, substituer ensuite]]
-        elseif e==0 or d==1 then method = [[isoler \(x\) dans la deuxième équation, substituer ensuite]]
+        if a==0 or b==1 then method = [[isoler \(y\) dans la 1\textsuperscript{re} équation, substituer ensuite]]
+        elseif b==0 or a==1 then method = [[isoler \(x\) dans la 1\textsuperscript{re} équation, substituer ensuite]]
+        elseif d==0 or e==1 then method = [[isoler \(y\) dans la 2\textsuperscript{e} équation, substituer ensuite]]
+        elseif e==0 or d==1 then method = [[isoler \(x\) dans la 2\textsuperscript{e} équation, substituer ensuite]]
         elseif a==d or b==e then method = [[soustraction directe des deux équations]]
         elseif a==-d or b==-e then method = [[addition directe des deux équations]]
-        elseif a%b==0 then method = string.format([[diviser par \(%d\) puis isoler \(y\) dans la première équation, substituer ensuite]], b)
-        elseif b%a==0 then method = string.format([[diviser par \(%d\) puis isoler \(x\) dans la première équation, substituer ensuite]], a)
-        elseif d%e==0 then method = string.format([[diviser par \(%d\) puis isoler \(y\) dans la deuxième équation, substituer ensuite]], e)
-        elseif e%d==0 then method = string.format([[diviser par \(%d\) puis isoler \(x\) dans la deuxième équation, substituer ensuite]], d)
+        elseif a%b==0 then method = string.format([[diviser par \(%d\) puis isoler \(y\) dans la 1\textsuperscript{re} équation, substituer ensuite]], b)
+        elseif b%a==0 then method = string.format([[diviser par \(%d\) puis isoler \(x\) dans la 1\textsuperscript{re} équation, substituer ensuite]], a)
+        elseif d%e==0 then method = string.format([[diviser par \(%d\) puis isoler \(y\) dans la 2\textsuperscript{e} équation, substituer ensuite]], e)
+        elseif e%d==0 then method = string.format([[diviser par \(%d\) puis isoler \(x\) dans la 2\textsuperscript{e} équation, substituer ensuite]], d)
         else method = [[par combinaison linéaire]]
         end
 
     -- give instead methods when problem has no solution:
-    else method = [[sans solutions]] -- initalise as no solutions, just in case
-        if a==0 and b==0 and c~=0 then method = [[évidemment]]
-        elseif d==0 and e==0 and f~=0 then method = [[évidemment]]
-        elseif a==0 and d==0 and c~=f then method = [[surdéfini]]
-        elseif b==0 and e==0 and c~=f then method = [[surdéfini]]
-        end 
+    else method = [[sans solutions (combinaison linéaire donne $1=0$)]]   
     end
     return method
 end
